@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./header.css";
-
-import {
-    Link
-} from "react-router-dom";
+import { useHistory,Link } from 'react-router-dom';
+import LoginContext from "../Context"
 
 function Header() {
+
+    const { loginStatus, setLoginStatus } = useContext(LoginContext);
+    const history = useHistory();
+
+    function logout() {
+        fetch("/account/logout").then(() => {
+            setLoginStatus(false);
+            history.push("/home")
+        })
+    };
 
     return <nav className="navbar navbar-expand-md navbar-dark Header" style={{ backgroundColor: "#283C63" }}>
         <div className="container-fluid">
@@ -14,16 +22,26 @@ function Header() {
 
             <div className="S collapse navbar-collapse" id="navbarSupportedContent" >
 
-
                 <form className="d-flex search">
                     <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                     <button className="btn btn-outline-success" type="submit">Search</button>
                 </form>
 
-
                 <div className="navbar-nav">
-                    <Link to="/account" className="nav-link "> Profile/login </Link>
                     <Link to="/home" className="nav-link "> Home </Link>
+
+                    {loginStatus === false && <Link to="/login" className="nav-link "> Login </Link>}
+                    {loginStatus === true && <div className="dropdown">
+                        <button className="btn nav-link dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                            Profile
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                            <li><Link to="/account/profile" className="dropdown-item nav-link" >My Profile</Link></li>
+                            <li><button onClick={logout} className="dropdown-item nav-link" >Logout</button></li>
+                        </ul>
+                    </div>
+                    }
+
 
 
                     <div className="dropdown">
@@ -38,13 +56,11 @@ function Header() {
                         </ul>
                     </div>
 
-
                     <Link to="/orders" className="nav-link"> Orders </Link>
                     <Link to="/cart" className="nav-link"> Cart </Link>
 
                 </div>
             </div>
-
 
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>

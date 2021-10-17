@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import Input from './input';
 import {useHistory} from "react-router-dom"
+import loginContext from "../Context"
 
 function Login() {
     let empty = {
@@ -8,6 +9,7 @@ function Login() {
         password: ""
     };
 
+    const { setLoginStatus } = useContext(loginContext);
     const [loginInput, setLoginInput] = useState(empty);
     const [loginCheck, setLoginCheck] = useState();
     let history =useHistory();
@@ -35,6 +37,7 @@ function Login() {
     if (data.status!==200) {
         setLoginCheck("Wrong Email/Password");
     }else{
+setLoginStatus(true);
 history.push("/home");
     }
         })

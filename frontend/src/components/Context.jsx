@@ -1,13 +1,26 @@
-export const userContext = createContext();
+import React, { createContext, useEffect,useState } from 'react';
 
-import React from 'react';
+const LoginContext = createContext();
+const Provider = LoginContext.Provider;
 
-function Context() {
-    const [loginStatus,setLoginStatus] = useState();
-return <div>
+function Context(props) {
+    const [loginStatus, setLoginStatus] = useState(undefined);
 
-</div>
+    useEffect(()=>{
+        (async()=>{
+            let res = await fetch("/login/status");
+            let loginCheck = await res.json();
+            setLoginStatus(loginCheck);   
+
+        })()
+    },[])
+
+
+    return <Provider value={{loginStatus,setLoginStatus}}>
+        {props.children}
+    </Provider>
 };
 
-export default Context;
+export default LoginContext;
+export {Context};
 

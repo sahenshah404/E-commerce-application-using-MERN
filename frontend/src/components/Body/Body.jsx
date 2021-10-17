@@ -3,6 +3,7 @@ import Home from "./Home/Home";
 import Seller from "./Seller/Seller";
 import Product from "./Product/Product";
 import Login from "./Login";
+// import Account from "../Account/Account";
 
 import {
     Route,
@@ -18,6 +19,7 @@ function Body() {
             <Route path="/seller" > <Seller /> </Route>
             <Route path="/product" > <Product /> </Route>
             <Route path="/login" > <Login /> </Route>
+            {/* <Route path="/account" > <Account /> </Route> */}
 
         </Switch>
     </div>

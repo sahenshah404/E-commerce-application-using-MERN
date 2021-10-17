@@ -17,6 +17,7 @@ router.post("/", async (req, res) => {
             res.status(401).json({ errorMessage: "Wrong Credential" });
         } else {
             let token = await jwt.sign({
+                name:user.name,
                 email: user.email,
                 userType: user.userType
             }, process.env.SECRET);
@@ -26,6 +27,21 @@ router.post("/", async (req, res) => {
             }).send();
 
         }
+    }
+})
+
+router.get("/status",(req,res)=>{
+    try {
+        const token = req.cookies.token;
+        if(!token){
+            res.json(false);
+        }else{
+            const verified = jwt.verify(token,process.env.SECRET);
+            res.json(true)
+        }
+        
+    } catch (error) {
+        res.json(false);
     }
 })
 
