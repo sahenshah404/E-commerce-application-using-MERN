@@ -1,0 +1,21 @@
+img{
+  max-height: 80%;
+  max-width: 100%;
+  padding: auto;
+  margin: auto;
+}
+
+.card-body {
+  box-shadow: 1px 3px 5px grey;
+  background-color: #7ac7c4;
+  color: black;
+  max-width: 100%;
+}
+
+.nav-link:hover {
+  color: brown;
+}
+
+.d-block{
+  margin-top: 3%;
+}
