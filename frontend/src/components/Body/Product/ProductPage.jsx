@@ -14,7 +14,7 @@ function ProductPage() {
         })();
     }, [value])
 
-  return ( product ? <div className="container-fluid">
+    return (product ? <div className="container-fluid">
         <div class="row">
             <div class="col-sm-10 col-md-5">
 
@@ -39,18 +39,34 @@ function ProductPage() {
 
             </div>
             <div class="col-sm-12 col-md-6 container-fluid">
-                    <h2>{product.name} </h2>
-            <div class="container-fluid mt-4">
+                <h2>{product.name} </h2>
+                <hr />
+                <div class="container-fluid mt-4">
                     <h3>Price: {product.price}</h3>
-                   
+                    <hr />
+                    <div class="container-fluid mt-4">
+                        <div>
+                            <h5>In Stock: {product.stock}</h5>
+                            <p>
+                                {product.desc.substring(0,200)}...
+                            </p>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success" type="button">Buy Now</button>
+                            <button class="btn btn-outline-success" type="button">Add to Cart</button>
+                        </div>
+
                     </div>
+
+                </div>
             </div>
         </div>
-        <div className="row m-4">
-        <p>{product.desc}</p>
+        <hr />
+        <div className="row mt-4">
+            <p>{product.desc}</p>
         </div>
     </div>
-    : <div></div>);
+        : <div></div>);
 };
 
 export default ProductPage;
