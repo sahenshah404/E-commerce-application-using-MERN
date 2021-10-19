@@ -1,6 +1,6 @@
 import React, { useState,useContext } from 'react';
 import Input from './input';
-import {useHistory} from "react-router-dom"
+import {useHistory,Link} from "react-router-dom"
 import loginContext from "../Context"
 
 function Login() {
@@ -45,6 +45,7 @@ history.push("/home");
     }
 
     return <div>
+        <h2 className="text-center">Login Page!</h2>
         <form onSubmit={login} >
             <div className="input-form m-auto">
             <div><p className="text-danger  m-0">{loginCheck}</p></div>
@@ -60,6 +61,7 @@ history.push("/home");
                         value={loginInput.password} required />
 
                     <button type="submit" className="btn btn-dark m-2" > Login</button>
+                    <Link to="/signup" type="button" className="btn btn-outline-dark m-2" > Sign Up</Link>
                 </div>
             </div>
         </form>

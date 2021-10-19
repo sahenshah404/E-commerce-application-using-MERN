@@ -1,9 +1,21 @@
 img{
+  width: 100%;
   max-height: 80%;
-  max-width: 100%;
+  padding: auto;
+  margin: auto;
+  object-fit: cover;
+}
+
+.img{
+  height: 23rem;
   padding: auto;
   margin: auto;
 }
+
+.product{
+height: 60%;
+}
+
 
 .card-body {
   box-shadow: 1px 3px 5px grey;
@@ -18,4 +30,8 @@ img{
 
 .d-block{
   margin-top: 3%;
+}
+sub{
+  font-size: 0.8rem;
+  text-decoration: underline;
 }

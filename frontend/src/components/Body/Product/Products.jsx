@@ -11,9 +11,9 @@ function Products({ products }) {
                         {/* card top-img */}
                         <img className="img" src={prods.images[0]} alt={prods.images[0]} />
                         <div className="card-body nav-link">
-                            <h5 className="card-title">{prods.name}</h5>
+                            <h5 className="card-title muted">{prods.name.substring(0,45)} <sub className="text-muted"> View More</sub></h5>
                             <p className="card-text">Price:{prods.price}</p>
-                            <p className="card-text"><small className="text-muted">CLick to view this Product</small></p>
+                            {/* <p className="card-text"><small className="text-muted">CLick to view this Product</small></p> */}
                         </div>
                     </Link>
                 </div>

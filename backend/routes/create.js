@@ -42,19 +42,23 @@ router.post("/user", async (req, res) => {
 
   let { name, email, password, mobile } = req.body;
 
-  let salt = await bcrypt.genSalt();
-  let hashedPassword = await bcrypt.hash(password, salt)
-  const user = await new UserModel({
-    name: name,
-    email: email,
-    password: hashedPassword,
-    UserType: "consumer",
-    mobile: mobile
-  });
+  let USER = await UserModel.findOne({ email: email });
+  if (!USER) {
+    let salt = await bcrypt.genSalt();
+    let hashedPassword = await bcrypt.hash(password, salt)
+    const user = await new UserModel({
+      name: name,
+      email: email,
+      password: hashedPassword,
+      UserType: "consumer",
+      mobile: mobile
+    });
 
-  let User = await user.save();
-  res.json(User);
-
+    let User = await user.save();
+    res.json(User);
+  }else{
+res.status(403).send();
+  }
 
 })
 
