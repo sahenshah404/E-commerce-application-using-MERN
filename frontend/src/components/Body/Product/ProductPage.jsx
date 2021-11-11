@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams,useRouteMatch } from 'react-router';
+import { Link } from 'react-router-dom';
 import "./product.css"
 
 function ProductPage() {
@@ -14,46 +15,52 @@ function ProductPage() {
         })();
     }, [value])
 
-    return (product ? <div className="container-fluid">
-        <div class="row">
-            <div class="col-sm-10 col-md-5">
+    const {url} =useRouteMatch();
 
-                <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
+    return (product ? <div className="container-fluid">
+        <div className="row">
+            <div className="col-sm-10 col-md-5">
+
+                <div id="carouselExampleDark" className="carousel carousel-dark slide" data-bs-ride="carousel">
+                    <div className="carousel-inner">
                         {product && product.images.map((img, index) => {
-                            return <div class={index === 0 ? "active carousel-item" : "carousel-item"} key={index}>
-                                <img src={img} class="d-block " alt="..." />
+                            return <div className={index === 0 ? "active carousel-item" : "carousel-item"} key={index}>
+                                <img src={img} className="d-block " alt="..." />
                             </div>
                         })}
                     </div>
 
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
+                    <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span className="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
+                    <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span className="visually-hidden">Next</span>
                     </button>
                 </div>
 
             </div>
-            <div class="col-sm-12 col-md-6 container-fluid">
+            <div className="col-sm-12 col-md-6 container-fluid">
                 <h2>{product.name} </h2>
                 <hr />
-                <div class="container-fluid mt-4">
+                <div className="container-fluid mt-4">
                     <h3>Price: {product.price}</h3>
                     <hr />
-                    <div class="container-fluid mt-4">
+                    <div className="container-fluid mt-4">
                         <div>
                             <h5>In Stock: {product.stock}</h5>
                             <p>
-                                {product.desc.substring(0,200)}...
+                                {product.desc.substring(0, 200)}...
                             </p>
                         </div>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-success" type="button">Buy Now</button>
-                            <button class="btn btn-outline-success" type="button">Add to Cart</button>
+                        <div className="d-grid gap-2">
+                            <Link to={product.stock>0 && url+"/buy"}>
+                                <button  className="w-100 btn btn-success " type="button">Buy Now</button>
+                            </Link>
+                            <Link to="">
+                                <button className="w-100 btn btn-outline-success" type="button">Add to Cart</button>
+                            </Link>
                         </div>
 
                     </div>

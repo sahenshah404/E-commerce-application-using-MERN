@@ -6,7 +6,8 @@ const user = new mongoose.Schema({
     password: {type: String, required: [true, "Please Enter Name"] },
     mobile:Number,
     adress:String,
-    userType:String
+    userType:String,
+    orders:[]
 });
 
 const UserModel =new mongoose.model("user", user);

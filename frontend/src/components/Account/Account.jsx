@@ -1,13 +1,22 @@
-// import React from 'react';
-// import { Switch, Route, useRouteMatch } from 'react-router-dom';
-// import Logout from './logout';
+import React from 'react';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-// function Account() {
-//     let { url } = useRouteMatch();
-//     return <div>
-//         <Switch>
-//         </Switch>
-//     </div>
-// };
+import Profile from "./Profile";
+import MyOrders from './MyOrders';
 
-// export default Account;
+function Account() {
+    let { url } = useRouteMatch();
+    return <div>
+        <Switch>
+            <Route path={url + "/profile"} exact >
+                <Profile/>
+            </Route>
+            <Route path={url + "/myorders"} exact >
+                <MyOrders/>
+            </Route>
+
+        </Switch>
+    </div>
+};
+
+export default Account;

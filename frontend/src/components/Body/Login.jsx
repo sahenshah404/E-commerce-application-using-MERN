@@ -38,7 +38,7 @@ function Login() {
         setLoginCheck("Wrong Email/Password");
     }else{
 setLoginStatus(true);
-history.push("/home");
+history.go(-1);
     }
         })
 

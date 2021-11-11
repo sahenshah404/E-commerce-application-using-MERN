@@ -4,6 +4,7 @@ import Seller from "./Seller/Seller";
 import Product from "./Product/Product";
 import Login from "./Login";
 import Signup from "./Signup";
+import Account from "../Account/Account"
 // import Account from "../Account/Account";
 
 import {
@@ -21,7 +22,8 @@ function Body() {
             <Route path="/product" > <Product /> </Route>
             <Route path="/login" > <Login /> </Route>
             <Route path="/signup" > <Signup /> </Route>
-            {/* <Route path="/account" > <Account /> </Route> */}
+            <Route path="/account" > <Account /> </Route>
+            
 
         </Switch>
     </div>

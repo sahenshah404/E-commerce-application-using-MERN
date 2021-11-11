@@ -56,7 +56,7 @@ function Header() {
                         </ul>
                     </div>
 
-                    <Link to="/orders" className="nav-link"> Orders </Link>
+                    <Link to="/account/myorders" className="nav-link"> Orders </Link>
                     <Link to="/cart" className="nav-link"> Cart </Link>
 
                 </div>
