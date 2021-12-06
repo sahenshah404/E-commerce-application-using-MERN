@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useParams,useRouteMatch } from 'react-router';
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
 import "./product.css"
+import loginContext from "../../Context"
 
 function ProductPage() {
     let { value } = useParams();
     const [product, setProduct] = useState();
-
+    const { setCartItem } = useContext(loginContext);
+    // console.log(cart);
+    
     useEffect(() => {
         (async () => {
             let prod = await fetch("/products/id/" + value);
@@ -15,7 +18,21 @@ function ProductPage() {
         })();
     }, [value])
 
-    const {url} =useRouteMatch();
+    const { url } = useRouteMatch();
+
+    function addToCart(event) {
+        if (product.stock > 0) {
+            let cartItem = {
+                productId:value,
+                name: product.name,
+                price: product.price,
+                image: product.images[0],
+                quantity: 1
+            }
+            setCartItem(cartItem);
+
+        }
+    }
 
     return (product ? <div className="container-fluid">
         <div className="row">
@@ -55,12 +72,11 @@ function ProductPage() {
                             </p>
                         </div>
                         <div className="d-grid gap-2">
-                            <Link to={product.stock>0 && url+"/buy"}>
-                                <button  className="w-100 btn btn-success " type="button">Buy Now</button>
+                            <Link to={product.stock > 0 && url + "/buy"}>
+                                <button className="w-100 btn btn-success " type="button">Buy Now</button>
                             </Link>
-                            <Link to="">
-                                <button className="w-100 btn btn-outline-success" type="button">Add to Cart</button>
-                            </Link>
+
+                            <button className="w-100 btn btn-outline-success" type="button" onClick={addToCart}>Add to Cart</button>
                         </div>
 
                     </div>

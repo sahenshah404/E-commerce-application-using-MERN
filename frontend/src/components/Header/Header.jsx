@@ -5,7 +5,7 @@ import LoginContext from "../Context"
 
 function Header() {
 
-    const { loginStatus, setLoginStatus } = useContext(LoginContext);
+    const { loginStatus, setLoginStatus,cart } = useContext(LoginContext);
     const history = useHistory();
 
     function logout() {
@@ -57,7 +57,7 @@ function Header() {
                     </div>
 
                     <Link to="/account/myorders" className="nav-link"> Orders </Link>
-                    <Link to="/cart" className="nav-link"> Cart </Link>
+                    <Link to="/cart" className="nav-link"> Cart {cart.length>0 && <p className="cartNo">{cart.length}</p>} </Link>
 
                 </div>
             </div>

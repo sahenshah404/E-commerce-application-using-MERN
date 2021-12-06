@@ -31,3 +31,8 @@
 .nav-link:hover {
   background-color: cadetblue;
 }
+
+.cartNo {
+  display: inline-block;
+  color:yellow;
+}

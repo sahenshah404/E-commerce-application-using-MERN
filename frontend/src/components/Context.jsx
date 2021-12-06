@@ -5,6 +5,7 @@ const Provider = LoginContext.Provider;
 
 function Context(props) {
     const [loginStatus, setLoginStatus] = useState(undefined);
+    const [cart,setCart]= useState([]);
 
     useEffect(()=>{
         (async()=>{
@@ -13,10 +14,18 @@ function Context(props) {
             setLoginStatus(loginCheck);   
 
         })()
-    },[])
+    },[]);
+
+    function setCartItem(item) {
+        setCart((prev)=>{
+            return [
+                ...prev,item
+            ]
+        })
+    }
 
 
-    return <Provider value={{loginStatus,setLoginStatus}}>
+    return <Provider value={{loginStatus,setLoginStatus,setCartItem,cart,setCart}}>
         {props.children}
     </Provider>
 };
