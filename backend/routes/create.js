@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 var bcrypt = require('bcryptjs');
+var jwt = require('jsonwebtoken');
 
 const productModel = require("../modules/db/productModel");
 const UserModel = require("../modules/db/UserModel")
@@ -19,22 +20,41 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.post("/product", upload.array('images', 12), function async(req, res, next) {
+router.post("/product", upload.array('images', 12), async function (req, res) {
   // req.files is array of `photos` files
   // req.body will contain the text fields, if there were any
-  let data = JSON.stringify(req.body);
-  data = JSON.parse(data);
-  let img = req.files.map(img => "/images/" + img.filename)
-  const item = new productModel({
-    name: data.name,
-    price: data.price,
-    desc: data.desc,
-    category: data.category,
-    stock: data.stock,
-    images: img
-  });
-  let documentCreated = item.save();
-  res.status(200).json(documentCreated);
+
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      res.status(401).send();
+    } else {
+      const verified = jwt.verify(token, process.env.SECRET);
+      const userEmail = verified.email;
+      let user = await UserModel.findOne({ email: userEmail });
+      let userId = user._id;
+
+      let data = JSON.stringify(req.body);
+      data = JSON.parse(data);
+      let img = req.files.map(img => "/images/" + img.filename)
+      const item = new productModel({
+        name: data.name,
+        price: data.price,
+        desc: data.desc,
+        category: data.category,
+        stock: data.stock,
+        images: img,
+        sellerId: userId
+      });
+      let documentCreated = await item.save();
+      await user.products.push(documentCreated._id.toString());
+      await user.save();
+      res.status(200).json(documentCreated);
+    };
+
+  } catch (error) {
+    res.sendStatus(401);
+  }
 });
 
 
@@ -50,14 +70,14 @@ router.post("/user", async (req, res) => {
       name: name,
       email: email,
       password: hashedPassword,
-      UserType: "consumer",
+      userType: "user",
       mobile: mobile
     });
 
     let User = await user.save();
     res.json(User);
-  }else{
-res.status(403).send();
+  } else {
+    res.status(403).send();
   }
 
 })

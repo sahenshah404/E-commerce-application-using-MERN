@@ -13,7 +13,7 @@ function Profile() {
     }, []);
 
     return <>
-        {profile && <div className="input-form m-auto">
+        {profile && <div className="custom-container m-auto">
             <p className="h1">Profile</p>
             <table className="w-100">
                 <tr className="h3">

@@ -5,7 +5,8 @@ import Product from "./Product/Product";
 import Login from "./Login";
 import Signup from "./Signup";
 import Account from "../Account/Account";
-import Cart from "./Cart"
+import Cart from "./Cart";
+import CartBuy from "./CartBuy";
 // import Account from "../Account/Account";
 
 import {
@@ -25,6 +26,7 @@ function Body() {
             <Route path="/signup" > <Signup /> </Route>
             <Route path="/account" > <Account /> </Route>
             <Route path="/cart" > <Cart /> </Route>
+            <Route path="/buycartitems" > <CartBuy /> </Route>
             
 
         </Switch>

@@ -47,7 +47,7 @@ history.go(-1);
     return <div>
         <h2 className="text-center">Login Page!</h2>
         <form onSubmit={login} >
-            <div className="input-form m-auto">
+            <div className="custom-container m-auto">
             <div><p className="text-danger  m-0">{loginCheck}</p></div>
                 <div className="container-fluid">
                     <Input type="email" label="Name"

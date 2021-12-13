@@ -7,7 +7,7 @@ import loginContext from "../../Context"
 function ProductPage() {
     let { value } = useParams();
     const [product, setProduct] = useState();
-    const { setCartItem } = useContext(loginContext);
+    const { setCartItem,loginStatus } = useContext(loginContext);
     // console.log(cart);
     
     useEffect(() => {
@@ -72,9 +72,18 @@ function ProductPage() {
                             </p>
                         </div>
                         <div className="d-grid gap-2">
+                            {
+                                loginStatus?<>
                             <Link to={product.stock > 0 && url + "/buy"}>
                                 <button className="w-100 btn btn-success " type="button">Buy Now</button>
                             </Link>
+                                </> :
+                                <>
+                            <Link to={"/login"}>
+                                <button className="w-100 btn btn-success " type="button">Buy Now</button>
+                            </Link>
+                                </>
+                            }
 
                             <button className="w-100 btn btn-outline-success" type="button" onClick={addToCart}>Add to Cart</button>
                         </div>

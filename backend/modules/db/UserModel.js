@@ -7,7 +7,10 @@ const user = new mongoose.Schema({
     mobile:Number,
     adress:String,
     userType:String,
-    orders:[]
+    orders:[],
+    products:[],
+    sales:[]
+
 });
 
 const UserModel =new mongoose.model("user", user);

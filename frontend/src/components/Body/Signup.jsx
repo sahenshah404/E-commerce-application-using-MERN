@@ -67,7 +67,7 @@ function Signup() {
     return <div>
         <h2 className="text-center">SignUp Page!</h2>
         <form onSubmit={signup} >
-            <div className="input-form m-auto">
+            <div className="custom-container m-auto">
                 <div><p className="text-danger  m-0">{signupCheck}</p></div>
                 <div className="container-fluid">
 

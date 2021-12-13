@@ -32,7 +32,7 @@ function CreateProduct() {
         })
     };
 
-    function addProd(e) {
+    async function addProd(e) {
         e.preventDefault();
 
         const data = new FormData();
@@ -45,10 +45,23 @@ function CreateProduct() {
             data.append("images", prodData.images[i]);
         }
 
+        // fetch("/create/product", {
+        //     method: "POST",
+        //     body: data
+        // }).then(history.push("/seller"));
+
         fetch("/create/product", {
             method: "POST",
             body: data
-        }).then(history.push("/seller"))
+        }).then((data) => {
+            if (data.status !== 200) {
+                alert("your product has not been created");
+            } else {
+                history.push("/seller");
+            }
+        })
+
+
 
 
         // setProdData(sample)
@@ -61,7 +74,7 @@ function CreateProduct() {
 
     return <form onSubmit={addProd}>
 
-        <div className="input-form m-auto">
+        <div className="custom-container m-auto">
 
             <div className="container-fluid">
 
@@ -75,8 +88,9 @@ function CreateProduct() {
                     <div className="col-sm-10">
                         <select className="form-select" name="category" id="selectCategory"
                             onChange={prodInput} value={prodData.category}
-                            aria-label="Default select example">
-                            <option selected value="">select Category</option>
+                            aria-label="Default select example"
+                        >
+                            <option defaultValue="">select Category</option>
                             <option value="TopWear">Top wear -- Shirts/Tshirts/Jackets</option>
                             <option value="BottomWear">Bottom wear -- Jeans/Trousers</option>
                             <option value="FootWear">Foot wear -- Shoes/Sandles</option>

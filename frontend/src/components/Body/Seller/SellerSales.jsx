@@ -1,10 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import loginContext from '../Context';
 
-function Cart() {
-    let { cart,setCart,setCartItem } = useContext(loginContext);
+function SellerSales() {
+
+    const [cart, setCart] = useState([]);
+    useEffect(() => {
+        (async () => {
+            const response = await fetch("/products/mysales");
+            const data = await response.json();
+            setCart(data);
+
+        })()
+    }, []);
+
 
     let newCart = [];
     let uniqueItem = [];
@@ -26,9 +35,9 @@ function Cart() {
         for (let index = 0; index < cart.length; index++) {
             if (cart[index].productId === element) {
                 let newItem = {
-                    productId:cart[index].productId,
+                    productId: cart[index].productId,
                     name: cart[index].name,
-                    price: cart[index].price*count,
+                    price: cart[index].price * count,
                     image: cart[index].image,
                     quantity: count
                 }
@@ -38,35 +47,12 @@ function Cart() {
         };
         count = 0;
     });
-    
-    function reduce(params) {
-        let index=0;
-        while(true){
-            if(cart[index].productId===params){
-                let modifiedCart = [...cart];
-                modifiedCart.splice(index,1);
-                setCart(modifiedCart);
-                break;
-            }
-            index=index+1;
-        }
-    };
 
-    function add(params) {
-        let index=0;
-        while(true){
-            if(cart[index].productId===params){
-                let newItem = {...cart[index]};
-                setCartItem(newItem);
-                break;
-            }
-            index=index+1;
-        }
-    };
+
 
     let totalAmount = 0;
     for (let index = 0; index < cart.length; index++) {
-        totalAmount=totalAmount+cart[index].price;        
+        totalAmount = totalAmount + cart[index].price;
     }
 
 
@@ -82,12 +68,9 @@ function Cart() {
                         </div>
                         <div className="col-md-9 flex-column">
                             <p className="h4">Product Name: {element.name}</p>
-                            <p className="h4">quantity: {element.quantity}</p>
+                            <p className="h4">quantity Sold: {element.quantity}</p>
                             <p className="h4">Price: {element.price}</p>
-                            <div className="row">
-                                <button className="btn btn-outline-danger col-6" type="button" onClick={()=>reduce(element.productId)}>Delete</button>
-                                <button className="btn btn-outline-success col-6" type="button" onClick={()=>add(element.productId)}>Add</button>
-                            </div>
+
                         </div>
                     </div>
 
@@ -96,13 +79,11 @@ function Cart() {
 
             </div>
             <div className="d-grid gap-2">
-                {cart.length>0 ?<>
-                <p className="h3">Total Amount =  {totalAmount}</p>
-               <Link to="/buycartitems">
-                <button className="btn btn-success btn-lg" type="button">Buy All</button>
-               </Link>
-               </>:
-                <p className="h1">Cart is Empty</p>
+                {cart.length > 0 ? <>
+                    <p className="h3">Total Sale =  {totalAmount}</p>
+
+                </> :
+                    <p className="h1">Sales List is Empty</p>
                 }
             </div>
         </div>
@@ -118,4 +99,4 @@ function Cart() {
 //         return item.name
 //     })
 // }
-export default Cart;
+export default SellerSales;

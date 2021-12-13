@@ -31,13 +31,8 @@ function ProductBuy() {
         }
     }
     return <div>
-        <div className="input-form m-auto">
-            {/* <p className="h3">Do you want to buy this product</p>
-    <label className="m-2" htmlFor="upi ">Enter your upi</label>
-    <input className="m-2" id="upi" type="text"/>
-    <br />
-    <button className="btn  btn-dark m-3" onClick={buying}>Proceed</button>
-    <button className="btn  btn-outline-dark" onClick={goback}>cancel</button> */}
+        <div className="custom-container m-auto">
+  
             <div className="container-fluid">
                 <Input type="text" label="Enter you UPI" placeholder="Enter UPI" name="upi" required id="upi" />
                 <button className="btn  btn-dark m-3" onClick={buying}>Proceed</button>

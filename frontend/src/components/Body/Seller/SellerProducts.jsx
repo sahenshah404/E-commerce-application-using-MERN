@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import LoginContext from '../Context';
+import LoginContext from "../../Context"
 
-function MyOrders() {
+function SellerProducts() {
 
     const { loginStatus } = useContext(LoginContext);
     const [orderData, setOrderData] = useState();
 
     useEffect(() => {
         (async () => {
-            const response = await fetch("/products/myorders");
+            const response = await fetch("/products/myproducts");
             const data = await response.json();
             setOrderData(data);
 
@@ -26,7 +26,7 @@ function MyOrders() {
             </Link>
         </div> : orderData && <div className="custom-container m-auto">
             <div className="container-fluid">
-                {orderData.reverse().map((element,index) => {
+                {orderData.map((element,index) => {
                     return <div className="row" key={index}>
                         <div className="col-md-3">
                            <Link to={"/product/id/"+element.productId}>
@@ -35,7 +35,7 @@ function MyOrders() {
                         </div>
                         <div className="col-md-9 flex-column">
                             <p className="h4">Product Name: {element.name}</p>
-                            <p className="h4">Bought At: {element.time}</p>
+                            <p className="h4">Price: {element.price}</p>
                             <p className="h4">quantity: {element.quantity}</p>
                         </div>
                     </div>
@@ -52,4 +52,4 @@ function MyOrders() {
 };
 
 
-export default MyOrders;
+export default SellerProducts;
