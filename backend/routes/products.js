@@ -22,6 +22,16 @@ router.get("/cat/:category", (req, res) => {
 
 });
 
+
+router.get("/search/:search", (req, res) => {
+    ProductModel.find({ $text: { $search: req.params.search } })
+        .then((d) => {
+            res.json(d.slice(0, 12));
+        })
+
+});
+
+
 router.get("/id/:id/buy/bought", async (req, res) => {
     try {
         const token = req.cookies.token;
@@ -76,7 +86,7 @@ router.get("/myorders", async (req, res) => {
             let user = await UserModel.findOne({ email: userEmail });
             let orderList = user.orders;
             let orders = [];
-            
+
             for (const element of orderList) {
                 let d = await ProductModel.findById(element.productId);
                 orders.push({
@@ -109,7 +119,7 @@ router.get("/myproducts", async (req, res) => {
             let user = await UserModel.findOne({ email: userEmail });
             let productList = user.products;
             let products = [];
-            
+
             for (const element of productList) {
                 let d = await ProductModel.findById(element);
                 products.push({
@@ -117,7 +127,7 @@ router.get("/myproducts", async (req, res) => {
                     name: d.name,
                     image: d.images[0],
                     quantity: d.stock,
-                    price:d.price
+                    price: d.price
                 });
 
             };
@@ -141,7 +151,7 @@ router.get("/mysales", async (req, res) => {
             let user = await UserModel.findOne({ email: userEmail });
             let saleList = user.sales;
             let sales = [];
-            
+
             for (const element of saleList) {
                 let d = await ProductModel.findById(element);
                 sales.push({
@@ -149,11 +159,39 @@ router.get("/mysales", async (req, res) => {
                     name: d.name,
                     image: d.images[0],
                     quantity: d.stock,
-                    price:d.price
+                    price: d.price
                 });
 
             };
             res.json(sales);
+        }
+    } catch (error) {
+        res.sendStatus(401);
+    }
+
+});
+
+
+router.get("/editStock/:prodId/:newStock", async (req, res) => {
+
+    try {
+        const token = req.cookies.token;
+        if (!token) {
+            res.status(401).send();
+        } else {
+            const verified = jwt.verify(token, process.env.SECRET);
+            const userEmail = verified.email;
+            let user = await UserModel.findOne({ email: userEmail });
+
+            let product = await ProductModel.findById(req.params.prodId);
+            if(product.sellerId===user._id.toString()){
+                product.stock=req.params.newStock;
+                await product.save()
+                res.send();
+            }else{
+                res.sendStatus(401);
+            }
+
         }
     } catch (error) {
         res.sendStatus(401);

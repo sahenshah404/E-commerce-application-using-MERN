@@ -11,9 +11,16 @@ function Header() {
     function logout() {
         fetch("/account/logout").then(() => {
             setLoginStatus(false);
-            history.push("/home")
+            history.push("/home");
         })
     };
+
+    function searchText(params) {
+        params.preventDefault();
+        const searchValue = params.target.searchText.value;
+        // console.log(searchValue);
+        history.push("/product/search/"+searchValue);
+    }
 
     return <nav className="navbar navbar-expand-md navbar-dark Header" style={{ backgroundColor: "#283C63" }}>
         <div className="container-fluid">
@@ -22,8 +29,8 @@ function Header() {
 
             <div className="S collapse navbar-collapse" id="navbarSupportedContent" >
 
-                <form className="d-flex search">
-                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <form className="d-flex search" onSubmit={searchText}>
+                    <input className="form-control me-2"  name="searchText" type="search" placeholder="Search" aria-label="Search" />
                     <button className="btn btn-outline-success" type="submit">Search</button>
                 </form>
 

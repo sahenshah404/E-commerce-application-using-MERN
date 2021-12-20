@@ -6,3 +6,24 @@
   background-color: #7ac7c4;
   border-radius: 10px;
 }
+
+.seller-nav-div{
+  width: 75%;
+  display:flex;
+  justify-content: space-between; 
+}
+
+.seller-nav-div a{
+  text-decoration: none;
+}
+
+.seller-nav{
+ padding-left: 1rem;
+ padding-right: 1rem;
+ color:rgb(85, 1, 105);
+}
+
+.seller-nav:hover{
+  background-color: rgb(130, 187, 238);
+  color: rgb(49, 49, 58);
+}

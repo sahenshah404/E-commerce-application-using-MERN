@@ -16,17 +16,17 @@ function Seller() {
     // }
 
     return <div className="pb-3 pt-1">
-        <div className="custom-container m-auto mt-4 d-flex">
+        <div className="custom-container m-auto mt-4 d-flex seller-nav-div">
             {
                 loginStatus ? <>
                     <Link to={`${url}/createproduct`}>
-                        <p className="h4">Create New Product </p>
+                        <p className="h4 seller-nav">Create New Product </p>
                     </Link>
                     <Link to={`${url}/sellerproduct`}>
-                        <p className="h4">View Your Product </p>
+                        <p className="h4 seller-nav">View Your Product </p>
                     </Link>
                     <Link to={`${url}/sellersales`}>
-                        <p className="h4">View Your Sales </p>
+                        <p className="h4 seller-nav">View Your Sales </p>
                     </Link>
                 </> :
                     <>
